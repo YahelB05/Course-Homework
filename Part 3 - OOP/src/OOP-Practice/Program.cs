@@ -18,8 +18,19 @@ namespace ConsoleApp1
             linkedList.Append(3);
             linkedList.Prepend(4);
 
+            Console.WriteLine($"Max Node: {linkedList.GetMaxNode().Value}");
+            Console.WriteLine($"Min Node: {linkedList.GetMinNode().Value}");
+
             Console.WriteLine(linkedList.Pop());
+
+            Console.WriteLine($"Max Node: {linkedList.GetMaxNode().Value}");
+            Console.WriteLine($"Min Node: {linkedList.GetMinNode().Value}");
+
             Console.WriteLine(linkedList.Unqueue());
+
+            Console.WriteLine($"Max Node: {linkedList.GetMaxNode().Value}");
+            Console.WriteLine($"Min Node: {linkedList.GetMinNode().Value}");
+
             linkedList.Sort();
 
             Node node = linkedList.Head;

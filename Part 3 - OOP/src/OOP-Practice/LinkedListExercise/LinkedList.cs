@@ -27,7 +27,7 @@ namespace OOP_Practice.LinkedListExercise
             Last.Next = new Node(item);
             Last = Last.Next;
 
-            UpdateMinMax(Last);
+            UpdateMinMax(Last, true);
         }
 
         public void Prepend(int item)
@@ -36,11 +36,13 @@ namespace OOP_Practice.LinkedListExercise
             newHead.Next = Head;
             Head = newHead;
 
-            UpdateMinMax(Head);
+            UpdateMinMax(Head, true);
         }
 
         public int Pop()
         {
+            UpdateMinMax(Last, false);
+
             Node node = Head;
             while (node.Next != null && node.Next != Last)
             {
@@ -59,6 +61,8 @@ namespace OOP_Practice.LinkedListExercise
 
         public int Unqueue()
         {
+            UpdateMinMax(Head, false);
+
             int headValue = Head.Value;
             Head = Head.Next;
             return headValue;
@@ -110,12 +114,52 @@ namespace OOP_Practice.LinkedListExercise
             }
         }
 
-        private void UpdateMinMax(Node newNode)
+        private void UpdateMinMax(Node node, bool isNewNode)
         {
-            if (newNode.Value > MaxValueNode.Value)
-                MaxValueNode = newNode;
-            if (newNode.Value < MinValueNode.Value)
-                MinValueNode = newNode;
+            // If it's a newly added node - max and min nodes will be updated at O(1):
+            if (isNewNode)
+            {
+                if (node.Value > MaxValueNode.Value)
+                    MaxValueNode = node;
+                if (node.Value < MinValueNode.Value)
+                    MinValueNode = node;
+            } else
+            {
+                // If the given node is about to get deleted (due to Pop or Unqueue),
+                // we'll need to iterate and find the new min/max (if the given node was the min/max)
+                if (node.Value == MinValueNode.Value)
+                    (MinValueNode, _) = IterativeGet2ndMinMax();
+                if (node.Value == MaxValueNode.Value)
+                    (_, MaxValueNode) = IterativeGet2ndMinMax();
+            }
+        }
+
+        private (Node min, Node max) IterativeGet2ndMinMax()
+        {
+            int min = Int32.MaxValue;
+            int max = Int32.MinValue;
+
+            Node minNode = null;
+            Node maxNode = null;
+
+            Node node = Head;
+            while (node != null)
+            {
+                if (node.Value > max && node.Value < MaxValueNode.Value)
+                {
+                    maxNode = node;
+                    max = node.Value;
+                }
+                if (node.Value < min && node.Value > MinValueNode.Value)
+                {
+                    minNode = node;
+                    min = node.Value;
+                }
+
+                node = node.Next;
+            }
+
+            return (minNode, maxNode);
         }
     }
 }
