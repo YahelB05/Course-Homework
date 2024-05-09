@@ -58,6 +58,12 @@ namespace OOP_Practice.NumericalExpressionExercise
         };
 
         // ------------------------------------ Interface Implementation -------------------------
+
+        /// <summary>
+        /// Maps a number to its literal string representation.
+        /// </summary>
+        /// <param name="value">The number to be mapped to its literal string representation</param>
+        /// <returns>Number's literal string representation</returns>
         public string ToLiteral(long value)
         {
             // If the given long is contained inside one of the HashMaps - return it immediately without calculations:
@@ -87,7 +93,7 @@ namespace OOP_Practice.NumericalExpressionExercise
             if (!string.IsNullOrEmpty(currNumber))
                 numberParts.Add(Convert.ToInt32(currNumber));
 
-            // Handle number parts:
+            // Handle number parts - each number part gets mapped to a string literal and gets a title if needed (million/billion etc...):
             List<string> literals = new List<string>();
             for (int i = numberParts.Count - 1; i >= 0; i--)
             {
@@ -98,9 +104,15 @@ namespace OOP_Practice.NumericalExpressionExercise
                 literals.Add($"{HandleNumberPart(numberParts.ElementAt(i))} {title}".Trim());
             }
 
+            // Joins all the number parts and their titles into one string:
             return string.Join(" ", literals.ToArray());
         }
 
+        /// <summary>
+        /// Maps a number between 0 <= numberPart <= 999 to its literal string representation.
+        /// </summary>
+        /// <param name="numberPart">Number between 0 <= numberPart <= 999 to be mapped to a string literal</param>
+        /// <returns>Number's literal string representation</returns>
         private string HandleNumberPart(int numberPart)
         {
             List<string> literals = new List<string>();
@@ -121,6 +133,11 @@ namespace OOP_Practice.NumericalExpressionExercise
             return string.Join(" ", literals.ToArray());
         }
 
+        /// <summary>
+        /// Checks if the given number exists in one of the static Dictionaries as a key.
+        /// </summary>
+        /// <param name="number">Number to check if exists in one of the Dictionaries</param>
+        /// <returns>If exists, returns the value of the key-value pair. Otherwise, returns null.</returns>
         private string ReturnImmediateLiteral(long number)
         {
             try

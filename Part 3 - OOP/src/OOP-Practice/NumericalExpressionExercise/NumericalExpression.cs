@@ -37,6 +37,12 @@ namespace OOP_Practice.NumericalExpressionExercise
             return Value;
         }
 
+        /// <summary>
+        /// Calculates the sum of letters that every number in the range of [0 <= value] (in their literal form) have combined (without spaces).
+        /// </summary>
+        /// <param name="value">Max number</param>
+        /// <param name="Language">Language to translate the number to (in literal representation).</param>
+        /// <returns>Sum of letters</returns>
         public static long SumLetters(long value, ILanguage Language = null)
         {
             long sum = 0;
@@ -56,7 +62,7 @@ namespace OOP_Practice.NumericalExpressionExercise
             return sum;
         }
 
-        // Overloading - Method with the same name, different parameters and implementation.
+        // Polymorphism: Method Overloading - Method with the same name, different parameters and implementation.
         // The runtime environment will choose the correct method to call with the given parameters.
         public static long SumLetters(NumericalExpression numericalExpression)
         {

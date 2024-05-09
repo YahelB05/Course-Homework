@@ -18,6 +18,8 @@ namespace ConsoleApp1
             linkedList.Append(3);
             linkedList.Prepend(4);
 
+            Console.WriteLine($"Is Circular? {linkedList.IsCircular()}");
+
             Console.WriteLine($"Max Node: {linkedList.GetMaxNode().Value}");
             Console.WriteLine($"Min Node: {linkedList.GetMinNode().Value}");
 

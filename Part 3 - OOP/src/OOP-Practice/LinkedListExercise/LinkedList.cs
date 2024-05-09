@@ -22,6 +22,10 @@ namespace OOP_Practice.LinkedListExercise
             MinValueNode = head;
         }
 
+        /// <summary>
+        /// Appends a new node with the specified value to the end of the linkedlist.
+        /// </summary>
+        /// <param name="item">The value of the node to be appended.</param>
         public void Append(int item)
         {
             if (Head == null)
@@ -36,6 +40,10 @@ namespace OOP_Practice.LinkedListExercise
             UpdateMinMax(Last, true);
         }
 
+        /// <summary>
+        /// Prepends a new node with the specified value to the beginning of the linkedlist.
+        /// </summary>
+        /// <param name="item">The value of the node to be prepended.</param>
         public void Prepend(int item)
         {
             Node newHead = new Node(item);
@@ -45,6 +53,11 @@ namespace OOP_Practice.LinkedListExercise
             UpdateMinMax(Head, true);
         }
 
+        /// <summary>
+        /// Removes and returns the value of the last node in the linkedlist.
+        /// </summary>
+        /// <returns>The value of the last node.</returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public int Pop()
         {
             if (Head == null)
@@ -53,7 +66,7 @@ namespace OOP_Practice.LinkedListExercise
             UpdateMinMax(Last, false);
 
             Node node = Head;
-            while (node.Next != null)
+            while (node.Next != Last)
             {
                 node = node.Next;
             }
@@ -68,6 +81,11 @@ namespace OOP_Practice.LinkedListExercise
             return lastValue;
         }
 
+        /// <summary>
+        /// Removes and returns the value of the first node in the linkedlist.
+        /// </summary>
+        /// <returns>The value of the first node.</returns>
+        /// <exception cref="InvalidOperationException"></exception>
         public int Unqueue()
         {
             if (Head == null)
@@ -80,6 +98,10 @@ namespace OOP_Practice.LinkedListExercise
             return headValue;
         }
 
+        // <summary>
+        /// Returns an enumerable collection of all the values in the linkedlist.
+        /// </summary>
+        /// <returns>An enumerable collection of integers representing the values of the nodes.</returns>
         public IEnumerable<int> ToList()
         {
             Node node = Head;
@@ -90,6 +112,10 @@ namespace OOP_Practice.LinkedListExercise
             }
         }
 
+        /// <summary>
+        /// Checks if the linkedlist contains a cycle.
+        /// </summary>
+        /// <returns>True if the linked list contains a cycle; otherwise, false.</returns>
         public bool IsCircular()
         {
             HashSet<Node> pastNodes = new HashSet<Node>();
@@ -104,6 +130,9 @@ namespace OOP_Practice.LinkedListExercise
             return pastNodes.Contains(Last.Next);
         }
 
+        /// <summary>
+        /// Sorts the linkedlist in ascending order.
+        /// </summary>
         public void Sort()
         {
             IEnumerable<int> list = this.ToList();
@@ -112,17 +141,30 @@ namespace OOP_Practice.LinkedListExercise
             this.ToLinkedList(list.ToList());
         }
 
+        /// <summary>
+        /// Returns the node with the maximum value in the linkedlist.
+        /// </summary>
+        /// <returns>The node with the maximum value.</returns>
         public Node GetMaxNode()
         {
             return MaxValueNode;
         }
 
+        /// <summary>
+        /// Returns the node with the minimum value in the linkedlist.
+        /// </summary>
+        /// <returns>The node with the minimum value.</returns>
         public Node GetMinNode()
         {
             return MinValueNode;
         }
 
         // ------------------------------------------------ HELPER METHODS ------------------------------------------------
+        
+        /// <summary>
+        /// Converts the linkedlist to match the specified list of integers.
+        /// </summary>
+        /// <param name="list">The list of integers to be used to update the linkedlist.</param>
         private void ToLinkedList(List<int> list)
         {
             Node node = Head;
@@ -135,6 +177,11 @@ namespace OOP_Practice.LinkedListExercise
             }
         }
 
+        /// <summary>
+        /// Updates the minimum and maximum value nodes in the linkedlist.
+        /// </summary>
+        /// <param name="node">The node that has been added or removed.</param>
+        /// <param name="isNewNode">A flag indicating whether the node is newly added (true) or about to be removed (false).</param>
         private void UpdateMinMax(Node node, bool isNewNode)
         {
             // If it's a newly added node - max and min nodes will be updated at O(1):
@@ -155,6 +202,10 @@ namespace OOP_Practice.LinkedListExercise
             }
         }
 
+        /// <summary>
+        /// Finds the nodes with the second minimum and maximum values in the linkedlist iteratively.
+        /// </summary>
+        /// <returns>A tuple containing the node with the second minimum value and the node with the second maximum value.</returns>
         private (Node min, Node max) IterativeGet2ndMinMax()
         {
             int min = Int32.MaxValue;
