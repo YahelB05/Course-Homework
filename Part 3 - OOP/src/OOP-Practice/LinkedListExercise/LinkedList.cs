@@ -24,6 +24,12 @@ namespace OOP_Practice.LinkedListExercise
 
         public void Append(int item)
         {
+            if (Head == null)
+            {
+                Head = new Node(item);
+                return;
+            }
+
             Last.Next = new Node(item);
             Last = Last.Next;
 
@@ -41,10 +47,13 @@ namespace OOP_Practice.LinkedListExercise
 
         public int Pop()
         {
+            if (Head == null)
+                throw new InvalidOperationException("The LinkedList is empty.");
+
             UpdateMinMax(Last, false);
 
             Node node = Head;
-            while (node.Next != null && node.Next != Last)
+            while (node.Next != null)
             {
                 node = node.Next;
             }
@@ -61,6 +70,9 @@ namespace OOP_Practice.LinkedListExercise
 
         public int Unqueue()
         {
+            if (Head == null)
+                throw new InvalidOperationException("The LinkedList is empty.");
+
             UpdateMinMax(Head, false);
 
             int headValue = Head.Value;
@@ -80,7 +92,16 @@ namespace OOP_Practice.LinkedListExercise
 
         public bool IsCircular()
         {
-            return Last.Next == Head;
+            HashSet<Node> pastNodes = new HashSet<Node>();
+            Node node = Head;
+
+            while (node != Last)
+            {
+                pastNodes.Add(node);
+                node = node.Next;
+            }
+
+            return pastNodes.Contains(Last.Next);
         }
 
         public void Sort()
