@@ -31,6 +31,9 @@ namespace Game2048
             return instance;
         }
 
+        /// <summary>
+        /// Starts the 2048 game.
+        /// </summary>
         public void StartGame()
         {
             if (Game != null)
@@ -69,6 +72,10 @@ namespace Game2048
             Console.WriteLine("Hope You Enjoyed, Cya :)");
         }
 
+        /// <summary>
+        /// Checks the status of the game (Idle, Win or Lose)
+        /// </summary>
+        /// <param name="restartOrExitMode">ref to restartOrExitMode</param>
         private void CheckGameStatus(ref bool restartOrExitMode)
         {
             switch (Game.Status)
@@ -93,6 +100,10 @@ namespace Game2048
             }
         }
 
+        /// <summary>
+        /// Gives the player a move to make.
+        /// </summary>
+        /// <param name="stopGame">ref to stopGame</param>
         private void PlayGameMove(ref bool stopGame)
         {
             Game.GameBoard.DisplayBoard();
@@ -132,6 +143,10 @@ namespace Game2048
             
         }
 
+        /// <summary>
+        /// Asks the user if he wishes to restart the game or exit.
+        /// </summary>
+        /// <returns>The chosen action of the player</returns>
         private Action AskRestartOrExit()
         {
             Action action = Action.Restart; // Default Value

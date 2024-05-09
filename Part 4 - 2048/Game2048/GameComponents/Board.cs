@@ -25,6 +25,10 @@ namespace Game2048
         }
 
         // --------------------------------- Methods -----------------------------------
+        
+        /// <summary>
+        /// Sets all the board cells to 0
+        /// </summary>
         private void ResetBoard()
         {
             for (int i = 0; i <  ROWS; i++)
@@ -36,6 +40,9 @@ namespace Game2048
             }
         }
 
+        /// <summary>
+        /// Sets {RANDOM_INIT_CELLS} random cells to a random value.
+        /// </summary>
         public void InitRandomCells()
         {
             Random random = new Random();
@@ -48,6 +55,11 @@ namespace Game2048
             }
         }
 
+        /// <summary>
+        /// Handles the move operation on the Data 2D array.
+        /// </summary>
+        /// <param name="direction">The direction of the move</param>
+        /// <returns>Points earned during the move</returns>
         public int Move(Direction direction)
         {
             int pointsEarned = 0;
@@ -74,11 +86,16 @@ namespace Game2048
             return pointsEarned;
         }
 
+        /// <summary>
+        /// Move Up
+        /// </summary>
+        /// <param name="pointsEarned">ref to pointsEarned</param>
+        /// <param name="movedCells">ref to movedCells</param>
         private void MoveUp(out int pointsEarned, out int movedCells)
         {
             pointsEarned = 0;
             movedCells = 0;
-            HashSet<Cell> mergedPositions = new HashSet<Cell>();
+            HashSet<Cell> mergedPositions = new HashSet<Cell>(); // Cell positions that a cell-merge occurred
 
             for (int j = 0; j < COLUMNS; j++)
             {
@@ -103,11 +120,16 @@ namespace Game2048
             }
         }
 
+        /// <summary>
+        /// Move Down
+        /// </summary>
+        /// <param name="pointsEarned">ref to pointsEarned</param>
+        /// <param name="movedCells">ref to movedCells</param>
         private void MoveDown(out int pointsEarned, out int movedCells)
         {
             pointsEarned = 0;
             movedCells = 0;
-            HashSet<Cell> mergedPositions = new HashSet<Cell>();
+            HashSet<Cell> mergedPositions = new HashSet<Cell>(); // Cell positions that a cell-merge occurred
 
             for (int j = 0; j < COLUMNS; j++)
             {
@@ -132,11 +154,16 @@ namespace Game2048
             }
         }
 
+        /// <summary>
+        /// Move Right
+        /// </summary>
+        /// <param name="pointsEarned">ref to pointsEarned</param>
+        /// <param name="movedCells">ref to movedCells</param>
         private void MoveRight(out int pointsEarned, out int movedCells)
         {
             pointsEarned = 0;
             movedCells = 0;
-            HashSet<Cell> mergedPositions = new HashSet<Cell>();
+            HashSet<Cell> mergedPositions = new HashSet<Cell>(); // Cell positions that a cell-merge occurred
 
             for (int i = 0; i < ROWS; i++)
             {
@@ -161,11 +188,16 @@ namespace Game2048
             }
         }
 
+        /// <summary>
+        /// Move Left
+        /// </summary>
+        /// <param name="pointsEarned">ref to pointsEarned</param>
+        /// <param name="movedCells">ref to movedCells</param>
         private void MoveLeft(out int pointsEarned, out int movedCells)
         {
             pointsEarned = 0;
             movedCells = 0;
-            HashSet<Cell> mergedPositions = new HashSet<Cell>();
+            HashSet<Cell> mergedPositions = new HashSet<Cell>(); // Cell positions that a cell-merge occurred
 
             for (int i = 0; i < ROWS; i++)
             {
@@ -190,13 +222,20 @@ namespace Game2048
             }
         }
 
+        /// <summary>
+        /// Chooses a random free cell and gives it a random number.
+        /// </summary>
         private void AddNumberToRandomFreeCell()
         {
             var (row, column) = GenerateRandomFreeCell();
             Data[row, column] = GenerateRandomInitNumber();
         }
 
-        private (int, int) GenerateRandomCell()
+        /// <summary>
+        /// Generates a random cell position and returns it as a tuple.
+        /// </summary>
+        /// <returns>Tuple of the row and the column of the randomly chosen cell</returns>
+        private (int randomRow, int randomCol) GenerateRandomCell()
         {
             Random random = new Random();
             int randomRow = random.Next(ROWS);
@@ -205,12 +244,22 @@ namespace Game2048
             return (randomRow, randomCol);
         }
 
+        /// <summary>
+        /// Checks whether the given cell position is occupied or not.
+        /// </summary>
+        /// <param name="row">Row of the cell</param>
+        /// <param name="column">Column of the cell</param>
+        /// <returns>True if free, otherwise - false.</returns>
         private bool IsFreeCell(int row, int column)
         {
             return Data[row, column] <= 0;
         }
 
-        private (int, int) GenerateRandomFreeCell()
+        /// <summary>
+        /// Generates a random and unoccupied cell.
+        /// </summary>
+        /// <returns>Tuple of the row and column of the random unoccupied cell.</returns>
+        private (int row, int column) GenerateRandomFreeCell()
         {
             var (row, column) = GenerateRandomCell();
             while (!IsFreeCell(row, column))
@@ -221,12 +270,19 @@ namespace Game2048
             return (row, column);
         }
 
+        /// <summary>
+        /// Generates a random number out of RANDOM_INIT_CELLS_OPTIONS array.
+        /// </summary>
+        /// <returns>Random number from the RANDOM_INIT_CELLS_OPTIONS array</returns>
         private int GenerateRandomInitNumber()
         {
             Random random = new Random();
             return RANDOM_INIT_CELLS_OPTIONS[random.Next(RANDOM_INIT_CELLS_OPTIONS.Length)];
         }
 
+        /// <summary>
+        /// Displays the board in stdout.
+        /// </summary>
         public void DisplayBoard()
         {
             for (int i = 0; i < ROWS; i++)

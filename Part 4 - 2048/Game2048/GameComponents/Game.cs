@@ -27,6 +27,10 @@ namespace Game2048
             GameBoard.InitRandomCells();
         }
 
+        /// <summary>
+        /// Makes a move on the board
+        /// </summary>
+        /// <param name="direction">Direction to move</param>
         public void Move(Direction direction)
         {
             if (this.Status == GameStatus.Lose)
@@ -36,6 +40,9 @@ namespace Game2048
             UpdateGameStatus();
         }
 
+        /// <summary>
+        /// Checks if there's a win or lose - if so, updates Status property.
+        /// </summary>
         private void UpdateGameStatus()
         {
             if (!CanMakeMove())
@@ -44,6 +51,10 @@ namespace Game2048
                 this.Status = GameStatus.Win;
         }
 
+        /// <summary>
+        /// Checks if there is a possible move to make on the board.
+        /// </summary>
+        /// <returns>If there is a possible move left - true, otherwise - false.</returns>
         private bool CanMakeMove()
         {
             for (int i = 0; i < Board.ROWS; i++)
@@ -74,6 +85,10 @@ namespace Game2048
             return false;
         }
 
+        /// <summary>
+        /// Checks if the player has won and reached a cell with the number {CELL_GOAL}.
+        /// </summary>
+        /// <returns>If won - true, otherwise - false.</returns>
         private bool ReachedCellGoal()
         {
             for (int i = 0; i < Board.ROWS; i++)
