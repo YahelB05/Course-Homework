@@ -63,7 +63,7 @@ namespace OOP_Practice.NumericalExpressionExercise
         }
 
         // Polymorphism: Method Overloading - Method with the same name, different parameters and implementation.
-        // The runtime environment will choose the correct method to call with the given parameters.
+        // The correct method with the given parameters will be chosen at compile time.
         public static long SumLetters(NumericalExpression numericalExpression)
         {
             long sum = 0;
